@@ -1,0 +1,9 @@
+#
+# Dynamic Route Spring Boot Starter Auto-Configuration
+#
+# Spring Boot 2.x 自动配置文件
+# 用于在项目启动时自动装配 ServiceRouteAutoConfiguration
+#
+
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.strategy.starter.config.ServiceRouteAutoConfiguration
