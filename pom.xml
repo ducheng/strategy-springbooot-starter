@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.strategy</groupId>
+    <groupId>io.github.ducheng</groupId>
     <artifactId>dynamic-route-spring-boot-starter</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
@@ -86,35 +86,61 @@
         </dependency>
     </dependencies>
 
-    <url>https://github.com/your-username/strategy-springbooot-starter</url>
+    <url>https://github.com/ducheng/strategy-springbooot-starter</url>
     <licenses>
         <license>
             <name>The Apache Software License, Version 2.0</name>
             <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
         </license>
     </licenses>
     <developers>
         <developer>
-            <name>Your Name</name>
-            <email>your-email@example.com</email>
+            <name>ducheng</name>
+            <email>ducheng@users.noreply.github.com</email>
+            <organization>ducheng</organization>
+            <organizationUrl>https://github.com/ducheng</organizationUrl>
         </developer>
     </developers>
     <scm>
-        <connection>scm:git:https://github.com/your-username/strategy-springbooot-starter.git</connection>
-        <developerConnection>scm:git:https://github.com/your-username/strategy-springbooot-starter.git</developerConnection>
-        <url>https://github.com/your-username/strategy-springbooot-starter</url>
+        <connection>scm:git:https://github.com/ducheng/strategy-springbooot-starter.git</connection>
+        <developerConnection>scm:git:https://github.com/ducheng/strategy-springbooot-starter.git</developerConnection>
+        <url>https://github.com/ducheng/strategy-springbooot-starter</url>
+        <tag>v1.0.0</tag>
     </scm>
 
+    <!-- 新版 Maven Central Portal 配置 -->
     <distributionManagement>
         <repository>
-            <id>aliyun-releases</id>
-            <url>https://packages.aliyun.com/6078269c61a945067837c3e3/maven/releases</url>
+            <id>ossrh</id>
+            <url>https://central.sonatype.com/upload/maven2/</url>
         </repository>
-        <snapshotRepository>
-            <id>aliyun-snapshots</id>
-            <url>https://packages.aliyun.com/6078269c61a945067837c3e3/maven/snapshots</url>
-        </snapshotRepository>
     </distributionManagement>
+
+    <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <!-- GPG 签名插件 -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>3.0.1</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
     <build>
         <plugins>

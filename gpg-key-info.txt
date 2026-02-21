@@ -1,0 +1,114 @@
+# GPG 密钥信息
+
+## 密钥详情
+
+- **密钥 ID**: C430ABDBB3AC12C2
+- **用户名**: ducheng
+- **邮箱**: ducheng@users.noreply.github.com
+- **密钥类型**: RSA 4096位
+- **创建日期**: 2026-02-21
+
+## 已完成的步骤
+
+✅ 1. GPG 密钥对已生成
+✅ 2. 公钥已分发到 keys.openpgp.org
+✅ 3. Maven settings.xml 已配置
+
+## 需要手动完成的步骤
+
+### 步骤 1：编辑 Maven settings.xml
+
+文件位置：`C:\Users\Administrator\.m2\settings.xml`
+
+找到以下部分并填写你的 Sonatype Jira 凭证：
+
+```xml
+<server>
+    <id>ossrh</id>
+    <username>你的Sonatype Jira用户名</username>
+    <password>你的Sonatype Jira密码</password>
+</server>
+```
+
+**注意**：
+- 这不是 GitHub 账号！
+- 需要在 https://issues.sonatype.org 注册
+- 密码没有设置时为空
+
+### 步骤 2：创建 Sonatype Jira Ticket
+
+访问：https://issues.sonatype.org/secure/CreateIssue.jspa
+
+**填写以下信息**：
+- **Project**: Community Support - Open Source Project Repository Hosting
+- **Issue Type**: New Project
+- **Summary**: strategy-springbooot-starter - Dynamic Route Spring Boot Starter
+- **Group Id**: `io.github.ducheng`
+- **Project URL**: https://github.com/ducheng/strategy-springbooot-starter
+- **SCM URL**: https://github.com/ducheng/strategy-springbooot-starter.git
+
+等待 1-2 个工作日审核通过。
+
+### 步骤 3：测试部署
+
+```bash
+cd D:/codework/strategy-springbooot-starter
+
+# 部署 SNAPSHOT 版本（测试）
+mvn clean deploy
+
+# 部署 RELEASE 版本（正式）
+mvn clean deploy -P release
+```
+
+## 验证命令
+
+```bash
+# 查看 GPG 密钥
+gpg --list-keys
+
+# 验证公钥已分发
+gpg --keyserver keys.openpgp.org --recv-keys C430ABDBB3AC12C2
+
+# 导出私钥（备份）
+gpg --export-secret-keys --armor ducheng > private-key.asc
+```
+
+## 重要提示
+
+⚠️ **备份你的私钥！**
+
+```bash
+gpg --export-secret-keys --armor ducheng > ~/gpg-backup-$(date +%Y%m%d).asc
+```
+
+将 `gpg-backup-*.asc` 文件保存在安全的地方。
+
+⚠️ **记录你的 GPG 密钥 ID**: C430ABDBB3AC12C2
+
+⚠️ **GPG 密钥没有设置密码**
+如果需要设置密码，运行：
+```bash
+gpg --edit-key C430ABDBB3AC12C2
+> passwd
+> save
+```
+
+然后在 settings.xml 中配置：
+```xml
+<gpg.passphrase>你的密码</gpg.passphrase>
+```
+
+## 常用命令
+
+```bash
+# 签名测试
+echo "test" | gpg --clearsign
+
+# 查看密钥详情
+gpg --list-keys --keyid-format LONG
+
+# 删除密钥（如果需要重新生成）
+gpg --delete-secret-keys ducheng
+gpg --delete-keys ducheng
+```
